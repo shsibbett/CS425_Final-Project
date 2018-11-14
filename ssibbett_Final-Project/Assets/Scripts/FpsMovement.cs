@@ -1,10 +1,4 @@
-﻿/*
- * written by Joseph Hocking 2017
- * released under MIT license
- * text of license https://opensource.org/licenses/MIT
- */
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,24 +7,24 @@ using UnityEngine;
 // basic WASD-style movement control
 public class FpsMovement : MonoBehaviour
 {
-    [SerializeField] private Camera headCam;
+    [SerializeField] private Camera player_cam;
 
     public float speed = 6.0f;
     public float gravity = -9.8f;
 
-    public float sensitivityHor = 9.0f;
-    public float sensitivityVert = 9.0f;
+    public float horizontal_sensitivity = 9.0f;
+    public float vertical_sensitivity = 9.0f;
 
-    public float minimumVert = -45.0f;
-    public float maximumVert = 45.0f;
+    public float vertical_minimum = -45.0f;
+    public float vertical_maximum = 45.0f;
 
-    private float rotationVert = 0;
+    private float vertical_rotation = 0;
 
-    private CharacterController charController;
+    private CharacterController player_controller;
 
     void Start()
     {
-        charController = GetComponent<CharacterController>();
+        player_controller = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -52,21 +46,21 @@ public class FpsMovement : MonoBehaviour
         movement *= Time.deltaTime;
         movement = transform.TransformDirection(movement);
 
-        charController.Move(movement);
+        player_controller.Move(movement);
     }
 
     private void RotateCharacter()
     {
-        transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityHor, 0);
+        transform.Rotate(0, Input.GetAxis("Mouse X") * horizontal_sensitivity, 0);
     }
 
     private void RotateCamera()
     {
-        rotationVert -= Input.GetAxis("Mouse Y") * sensitivityVert;
-        rotationVert = Mathf.Clamp(rotationVert, minimumVert, maximumVert);
+        vertical_rotation -= Input.GetAxis("Mouse Y") * vertical_sensitivity;
+        vertical_rotation = Mathf.Clamp(vertical_rotation, vertical_minimum, vertical_maximum);
 
-        headCam.transform.localEulerAngles = new Vector3(
-            rotationVert, headCam.transform.localEulerAngles.y, 0
+        player_cam.transform.localEulerAngles = new Vector3(
+            vertical_rotation, player_cam.transform.localEulerAngles.y, 0
         );
     }
 }

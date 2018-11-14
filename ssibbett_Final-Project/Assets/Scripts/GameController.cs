@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
 
     private MazeConstructor generator;
 
-    private bool goalReached;
+    private bool exitReached;
 
     
     void Start() {
@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour
         float z = generator.startRow * generator.hallWidth;
         player.transform.position = new Vector3(x, y, z);
 
-        goalReached = false;
+        exitReached = false;
         player.enabled = true;
     }
 
@@ -46,10 +46,10 @@ public class GameController : MonoBehaviour
     }
     private void OnGoalTrigger(GameObject trigger, GameObject other)
     {
-        Debug.Log("Goal!");
-        goalReached = true;
+        Debug.Log("Exit!");
+        exitReached = true;
 
-        Debug.Log("Finish!");
+        Debug.Log("Escaped!");
         player.enabled = false;
 
         Invoke("StartNewMaze", 4);

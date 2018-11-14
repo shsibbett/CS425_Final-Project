@@ -592,13 +592,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a78d79ad419d444e8388e9143cd8bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headCam: {fileID: 1623668468}
+  player_cam: {fileID: 1623668468}
   speed: 6
   gravity: -9.8
-  sensitivityHor: 9
-  sensitivityVert: 9
-  minimumVert: -45
-  maximumVert: 45
+  horizontal_sensitivity: 9
+  vertical_sensitivity: 9
+  vertical_minimum: -45
+  vertical_maximum: 45
 --- !u!143 &1773131084
 CharacterController:
   m_ObjectHideFlags: 0
