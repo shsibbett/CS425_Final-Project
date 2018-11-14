@@ -303,8 +303,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1773131083}
-  timeLabel: {fileID: 1966176014}
-  scoreLabel: {fileID: 1280697454}
 --- !u!114 &933567176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,6 +318,7 @@ MonoBehaviour:
   mazeMat1: {fileID: 2100000, guid: 2019d743bc0984ba1b81150901d44455, type: 2}
   mazeMat2: {fileID: 2100000, guid: a36a45d20a42a4a0695e782d8b69409e, type: 2}
   startMat: {fileID: 2100000, guid: c8296ee06001c4d39b0f615626264b85, type: 2}
+  goalMat: {fileID: 2100000, guid: 32aef87a62cae234dbeb475f7f1274a4, type: 2}
   treasureMat: {fileID: 2100000, guid: c5b8154923bae4fedbbb1f1aca66fd98, type: 2}
 --- !u!4 &933567177
 Transform:

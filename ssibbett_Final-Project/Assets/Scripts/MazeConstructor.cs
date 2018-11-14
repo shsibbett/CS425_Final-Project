@@ -10,6 +10,7 @@ public class MazeConstructor : MonoBehaviour
     [SerializeField] private Material mazeMat1;
     [SerializeField] private Material mazeMat2;
     [SerializeField] private Material startMat;
+    [SerializeField] private Material goalMat;
     [SerializeField] private Material treasureMat;
 	private MazeMeshGenerator meshGenerator;
 
@@ -210,11 +211,11 @@ private void PlaceGoalTrigger(TriggerEventHandler callback)
 {
     GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
     go.transform.position = new Vector3(goalCol * hallWidth, .5f, goalRow * hallWidth);
-    go.name = "Treasure";
+    go.name = "Goal";
     go.tag = "Generated";
 
     go.GetComponent<BoxCollider>().isTrigger = true;
-    go.GetComponent<MeshRenderer>().sharedMaterial = treasureMat;
+    go.GetComponent<MeshRenderer>().sharedMaterial = goalMat;
 
     TriggerEventRouter tc = go.AddComponent<TriggerEventRouter>();
     tc.callback = callback;
