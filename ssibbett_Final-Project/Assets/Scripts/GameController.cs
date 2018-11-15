@@ -28,9 +28,9 @@ public class GameController : MonoBehaviour
     {
         generator.GenerateNewMaze(13, 15, OnStartTrigger, OnGoalTrigger);
 
-        float x = generator.startCol * generator.hallWidth;
+        float x = generator.startColumn * generator.corridorWidth;
         float y = 1;
-        float z = generator.startRow * generator.hallWidth;
+        float z = generator.startRow * generator.corridorWidth;
         player.transform.position = new Vector3(x, y, z);
 
         exitReached = false;
