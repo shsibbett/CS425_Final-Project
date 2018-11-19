@@ -15,38 +15,15 @@ public class MazeConstructor : MonoBehaviour
     [SerializeField] private Material trapMat;
 	private MazeMeshGenerator meshGenerator;
 
-    public int[,] data
-    {
-        get;
-        private set;
-    }
+    public PathNode[,] data { get; private set; }
 
-    public float corridorWidth
-    {
-        get; 
-        private set;
-    }
-    public float corridorHeight
-    {
-        get; private set;
-    }
+    public float corridorWidth { get; private set; }
+    public float corridorHeight { get; private set; }
 
-    public int startRow
-    {
-        get; 
-        private set;
-    }
-    public int startColumn
-    {
-        get; 
-        private set;
-    }
+    public int startRow { get; private set; }
+    public int startColumn { get; private set; }
 
-    public int goalRow
-    {
-        get;
-        private set;
-    }
+    public int goalRow { get; private set; }
     public int goalColumn
     {
         get; 
@@ -59,11 +36,11 @@ public class MazeConstructor : MonoBehaviour
 
 		mazeGenerator = new MazeDataGenerator();
 
-        data = new int[,]
+        data = new PathNode[,]
         {
-            {1, 1, 1},
-            {1, 0, 1},
-            {1, 1, 1}
+            {new PathNode(), new PathNode(), new PathNode()},
+            {new PathNode(), new PathNode(), new PathNode()},
+            {new PathNode(), new PathNode(), new PathNode()}
         };
     }
     
@@ -82,6 +59,8 @@ public class MazeConstructor : MonoBehaviour
         GenerateStart();
         GenerateGoal();
 
+        bool valid = mazeGenerator.validMaze(startRow, startColumn, goalRow, goalColumn);
+
         corridorWidth = meshGenerator.width;
         corridorHeight = meshGenerator.height;
 
@@ -99,7 +78,7 @@ public class MazeConstructor : MonoBehaviour
             return;
         }
 
-        int[,] maze = data;
+        PathNode[,] maze = data;
         int maxRows = maze.GetUpperBound(0);
         int maxColumns = maze.GetUpperBound(1);
 
@@ -109,7 +88,7 @@ public class MazeConstructor : MonoBehaviour
         {
             for (int j = 0; j <= maxColumns; j++)
             {
-                if (maze[i, j] == 0)
+                if (maze[i, j].data == 0)
                 {
                     message += "....";
                 }
@@ -139,7 +118,7 @@ public class MazeConstructor : MonoBehaviour
         mc.sharedMesh = filter.mesh;
 
         MeshRenderer mesh_renderer = obj.AddComponent<MeshRenderer>();
-        mesh_renderer.materials = new Material[3] {floorMat, wallMat, ceilingMat};
+        mesh_renderer.materials = new Material[4] {floorMat, wallMat, ceilingMat, trapMat};
     }
 
     public void DestroyPrevMaze()
@@ -152,7 +131,7 @@ public class MazeConstructor : MonoBehaviour
 
     private void GenerateStart()
     {
-        int[,] maze = data;
+        PathNode[,] maze = data;
         int maxRows = maze.GetUpperBound(0);
         int maxColumns = maze.GetUpperBound(1);
 
@@ -160,7 +139,7 @@ public class MazeConstructor : MonoBehaviour
         {
             for (int j = 0; j <= maxColumns; j++)
             {
-                if (maze[i, j] == 0)
+                if (maze[i, j].data == 0)
                 {
                     startRow = i;
                     startColumn = j;
@@ -172,7 +151,7 @@ public class MazeConstructor : MonoBehaviour
 
     private void GenerateGoal()
     {
-        int[,] maze = data;
+        PathNode[,] maze = data;
         int maxRows = maze.GetUpperBound(0);
         int maxColumns = maze.GetUpperBound(1);
 
@@ -181,7 +160,7 @@ public class MazeConstructor : MonoBehaviour
         {
             for (int j = maxColumns; j >= 0; j--)
             {
-                if (maze[i, j] == 0)
+                if (maze[i, j].data == 0)
                 {
                     goalRow = i;
                     goalColumn = j;

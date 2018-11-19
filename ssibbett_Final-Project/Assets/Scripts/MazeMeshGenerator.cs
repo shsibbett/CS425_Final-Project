@@ -12,15 +12,16 @@ public class MazeMeshGenerator
         height = 3.5f;
     }
 
-    public Mesh FromData(int[,] data)
+    public Mesh FromData(PathNode[,] data)
     {
         Mesh maze = new Mesh();
 
         List<Vector3> newVertices = new List<Vector3>();
         List<Vector2> newUVs = new List<Vector2>();
 
-        maze.subMeshCount = 3;
+        maze.subMeshCount = 4;
         List<int> floorTriangles = new List<int>();
+        List<int> trapTriangles = new List<int>();
         List<int> wallTriangles = new List<int>();
         List<int> ceilingTriangles = new List<int>();
 
@@ -32,14 +33,22 @@ public class MazeMeshGenerator
         {
             for (int j = 0; j <= maxColumns; j++)
             {
-                if (data[i, j] != 1)
+                if (data[i, j].data != 1)
                 {
+                    if (data[i, j].data == 0) {
                     // floor
-                    AddQuad(Matrix4x4.TRS(
-                        new Vector3(j * width, 0, i * width),
-                        Quaternion.LookRotation(Vector3.up),
-                        new Vector3(width, width, 1)
-                    ), ref newVertices, ref newUVs, ref floorTriangles);
+                        AddQuad(Matrix4x4.TRS(
+                            new Vector3(j * width, 0, i * width),
+                            Quaternion.LookRotation(Vector3.up),
+                            new Vector3(width, width, 1)
+                        ), ref newVertices, ref newUVs, ref floorTriangles);
+                    } else {
+                        AddQuad(Matrix4x4.TRS(
+                            new Vector3(j * width, 0, i * width),
+                            Quaternion.LookRotation(Vector3.up),
+                            new Vector3(width, width, 1)
+                        ), ref newVertices, ref newUVs, ref trapTriangles);
+                    }
 
                     // ceiling
                     AddQuad(Matrix4x4.TRS(
@@ -51,7 +60,7 @@ public class MazeMeshGenerator
 
                     // walls on sides next to blocked grid cells
 
-                    if (i - 1 < 0 || data[i-1, j] == 1)
+                    if (i - 1 < 0 || data[i-1, j].data == 1)
                     {
                         AddQuad(Matrix4x4.TRS(
                             new Vector3(j * width, heightHalf, (i-.5f) * width),
@@ -60,7 +69,7 @@ public class MazeMeshGenerator
                         ), ref newVertices, ref newUVs, ref wallTriangles);
                     }
 
-                    if (j + 1 > maxColumns || data[i, j+1] == 1)
+                    if (j + 1 > maxColumns || data[i, j+1].data == 1)
                     {
                         AddQuad(Matrix4x4.TRS(
                             new Vector3((j+.5f) * width, heightHalf, i * width),
@@ -69,7 +78,7 @@ public class MazeMeshGenerator
                         ), ref newVertices, ref newUVs, ref wallTriangles);
                     }
 
-                    if (j - 1 < 0 || data[i, j-1] == 1)
+                    if (j - 1 < 0 || data[i, j-1].data == 1)
                     {
                         AddQuad(Matrix4x4.TRS(
                             new Vector3((j-.5f) * width, heightHalf, i * width),
@@ -78,7 +87,7 @@ public class MazeMeshGenerator
                         ), ref newVertices, ref newUVs, ref wallTriangles);
                     }
 
-                    if (i + 1 > maxRows || data[i+1, j] == 1)
+                    if (i + 1 > maxRows || data[i+1, j].data == 1)
                     {
                         AddQuad(Matrix4x4.TRS(
                             new Vector3(j * width, heightHalf, (i+.5f) * width),
@@ -96,6 +105,7 @@ public class MazeMeshGenerator
         maze.SetTriangles(floorTriangles.ToArray(), 0);
         maze.SetTriangles(wallTriangles.ToArray(), 1);
         maze.SetTriangles(ceilingTriangles.ToArray(), 2);
+        maze.SetTriangles(trapTriangles.ToArray(), 3);
 
         maze.RecalculateNormals();
 
