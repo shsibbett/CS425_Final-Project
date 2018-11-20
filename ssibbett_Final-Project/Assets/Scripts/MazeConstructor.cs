@@ -52,15 +52,19 @@ public class MazeConstructor : MonoBehaviour
             Debug.LogError("Use odd numbers for dungeon size.");
         }
 
-        DestroyPrevMaze();
+        bool valid = false;
 
-        data = mazeGenerator.FromDimensions(rows, columns);
+        while (!valid) {
+            DestroyPrevMaze();
 
-        GenerateStart();
-        GenerateGoal();
+            data = mazeGenerator.FromDimensions(rows, columns);
 
-        bool valid = mazeGenerator.validMaze(startRow, startColumn, goalRow, goalColumn);
+            GenerateStart();
+            GenerateGoal();
 
+            valid = mazeGenerator.validMaze(startRow, startColumn, goalRow, goalColumn);
+            Debug.Log("valid: " + valid);
+        }
         corridorWidth = meshGenerator.width;
         corridorHeight = meshGenerator.height;
 
@@ -88,6 +92,7 @@ public class MazeConstructor : MonoBehaviour
         {
             for (int j = 0; j <= maxColumns; j++)
             {
+                //message += maze[i, j].debug;
                 if (maze[i, j].data == 0)
                 {
                     message += "....";
@@ -96,11 +101,10 @@ public class MazeConstructor : MonoBehaviour
                 {
                     message += "==";
                 }
-            }
-            message += "\n";
+             }
+             message += "\n";
         }
 
-        //4
         GUI.Label(new Rect(20, 20, 500, 500), message);
     }
 
