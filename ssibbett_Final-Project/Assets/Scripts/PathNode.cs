@@ -14,7 +14,7 @@ public class PathNode {
 	public PathNode() {
 		row = 0;
 		column = 0;
-		data = 0;
+		data = -1;
 		walkable = false;
 		visited = false;
 		trap = false;

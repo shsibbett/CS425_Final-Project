@@ -97,9 +97,11 @@ public class MazeConstructor : MonoBehaviour
                 {
                     message += "....";
                 }
-                else
+                else if (maze[i, j].data == 1)
                 {
                     message += "==";
+                } else {
+                    message += ";;;;";
                 }
              }
              message += "\n";

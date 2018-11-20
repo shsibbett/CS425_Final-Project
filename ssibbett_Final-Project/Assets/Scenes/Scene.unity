@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f8f8da615a9eb4a90d91ce915311b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showDebug: 0
+  showDebug: 1
   floorMat: {fileID: 2100000, guid: 2ef4d1414ce51664991f9f8da0c69f0b, type: 2}
   wallMat: {fileID: 2100000, guid: 6c096acbd65465b438d9b0a3d141cff1, type: 2}
   ceilingMat: {fileID: 2100000, guid: 90958dd685f590642806ebb68b473bc3, type: 2}

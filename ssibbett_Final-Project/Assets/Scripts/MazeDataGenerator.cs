@@ -45,17 +45,28 @@ public class MazeDataGenerator
                     	maze[i+x, j+y].data = 1;
 						maze[i+x, j+y].debug = "==";
                 	} 
-            	}
-
-				if (maze[i, j].data == 0) { 
-					maze[i, j].walkable = true;
-					maze[i, j].debug = "....";
-					if (Random.value < placeTrap) {
+            	} else if (Random.value < placeTrap) {
 						maze[i, j].data = 2;
 						maze[i, j].trap = true;
-						maze[i, j].debug = "trap";
-					}
-				}
+						maze[i, j].debug = ";;;;";
+				} else {
+						maze[i, j].data = 0;
+						maze[i, j].walkable = true;
+						maze[i, j].debug = "....";
+					
+
+					}	
+
+				// if (maze[i, j].data == 0) { 
+				// 	maze[i, j].walkable = true;
+				// 	maze[i, j].debug = "....";
+				// 	if (Random.value < placeTrap) {
+				// 		maze[i, j].data = 2;
+				// 		maze[i, j].walkable = false;
+				// 		maze[i, j].trap = true;
+				// 		maze[i, j].debug = ";;;;";
+				// 	}
+				// }
         	}
     	}
 
@@ -77,34 +88,71 @@ public class MazeDataGenerator
 
 			if (path[0].row == goalRow && path[0].column == goalColumn) {
 				valid = true;
-				path[0].debug = "go";
+				path[0].debug = "::::";
 			} else {
-				for (int i = -1; i <= 1; i++) {
-					for (int j = -1; j <= 1; j++) {
-						PathNode neighbor = g_maze[path[0].row + i, path[0].column + j];
-						//Debug.Log("Neighbor at " + neighbor.row + ", " + neighbor.column);
+				// for (int i = -1; i <= 1; i++) {
+				// 	for (int j = -1; j <= 1; j++) {
+				// 		PathNode neighbor = g_maze[path[0].row + i, path[0].column + j];
+				// 		//Debug.Log("Neighbor at " + neighbor.row + ", " + neighbor.column);
 
-						if (((i == -1 && j == -1) || (i == 1 && j == -1)) && g_maze[path[0].row, path[0].column - 1].walkable) { // if neighbor is northwest or southwest and no wall to the left of player
-							if (neighbor.data == 0 && neighbor.walkable && !neighbor.visited && !neighbor.trap) {
-								//Debug.Log("Adding neighbor");
-								path.Add(neighbor);
-								neighbor.debug = "22";
-							}
-						} else if (((i == -1 && j == 1) || (i == 1 && j == 1)) && g_maze[path[0].row, path[0].column + 1].walkable) { // if neighbor is northeast or southeast and no wall to the right of player
-							if (neighbor.data == 0 && neighbor.walkable && !neighbor.visited && !neighbor.trap) {
-								//Debug.Log("Adding neighbor");
-								path.Add(neighbor);
-								neighbor.debug = "22";
-							}
-						} else {
-							if (neighbor.data == 0 && neighbor.walkable && !neighbor.visited && !neighbor.trap) { // all other neighbors
-								//Debug.Log("Adding neighbor");
-								path.Add(neighbor);
-								neighbor.debug = "22";
-							}
-						}
+				// 		if (((i == -1 && j == -1) || (i == 1 && j == -1)) && g_maze[path[0].row, path[0].column - 1].walkable) { // if neighbor is northwest or southwest and no wall to the left of player
+				// 			if (neighbor.data == 0 && neighbor.walkable && !neighbor.visited && !neighbor.trap) {
+				// 				//Debug.Log("Adding neighbor");
+				// 				neighbor.visited = true;
+				// 				path.Add(neighbor);
+				// 				neighbor.debug = "    ";
+				// 			}
+				// 		} else if (((i == -1 && j == 1) || (i == 1 && j == 1)) && g_maze[path[0].row, path[0].column + 1].walkable) { // if neighbor is northeast or southeast and no wall to the right of player
+				// 			if (neighbor.data == 0 && neighbor.walkable && !neighbor.visited && !neighbor.trap) {
+				// 				//Debug.Log("Adding neighbor");
+				// 				neighbor.visited = true;
+				// 				path.Add(neighbor);
+				// 				neighbor.debug = "    ";
+				// 			}
+				// 		} else {
+				// 			if (neighbor.data == 0 && neighbor.walkable && !neighbor.visited && !neighbor.trap) { // all other neighbors
+				// 				//Debug.Log("Adding neighbor");
+				// 				neighbor.visited = true;
+				// 				path.Add(neighbor);
+				// 				neighbor.debug = "    ";
+				// 			}
+				// 		}
+				// 	}
+					PathNode neighbor = g_maze[path[0].row - 1, path[0].column];
+
+					if (neighbor.data == 0 && neighbor.walkable && !neighbor.visited && !neighbor.trap) {
+						//Debug.Log("Adding neighbor");
+						neighbor.visited = true;
+						path.Add(neighbor);
+						neighbor.debug = "    ";
 					}
-				}
+
+					neighbor = g_maze[path[0].row, path[0].column - 1];
+					
+					if (neighbor.data == 0 && neighbor.walkable && !neighbor.visited && !neighbor.trap) {
+						//Debug.Log("Adding neighbor");
+						neighbor.visited = true;
+						path.Add(neighbor);
+						neighbor.debug = "    ";
+					}
+
+					neighbor = g_maze[path[0].row, path[0].column + 1];
+
+					if (neighbor.data == 0 && neighbor.walkable && !neighbor.visited && !neighbor.trap) {
+						//Debug.Log("Adding neighbor");
+						neighbor.visited = true;
+						path.Add(neighbor);
+						neighbor.debug = "    ";
+					}
+					neighbor = g_maze[path[0].row + 1, path[0].column];
+
+					if (neighbor.data == 0 && neighbor.walkable && !neighbor.visited && !neighbor.trap) {
+						//Debug.Log("Adding neighbor");
+						neighbor.visited = true;
+						path.Add(neighbor);
+						neighbor.debug = "    ";
+					}
+				//}
 					//Debug.Log("looking for path");
 			}
 			//Debug.Log("");
