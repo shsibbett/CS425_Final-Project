@@ -10,9 +10,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private FpsMovement player;
 
     private MazeConstructor generator;
-
-    private bool exitReached;
-
     
     void Start() {
         generator = GetComponent<MazeConstructor>();
@@ -33,7 +30,6 @@ public class GameController : MonoBehaviour
         float z = generator.startRow * generator.corridorWidth;
         player.transform.position = new Vector3(x, y, z);
 
-        exitReached = false;
         player.enabled = true;
     }
 
@@ -46,19 +42,16 @@ public class GameController : MonoBehaviour
     }
     private void OnGoalTrigger(GameObject trigger, GameObject other)
     {
-        Debug.Log("Exit!");
-        exitReached = true;
-
         Debug.Log("Escaped!");
-        player.enabled = false;
+        player.enabled = false; // make player immobile while generating new maze
 
-        Invoke("StartNewMaze", 4);
+        Invoke("StartNewMaze", 4); // generate new maze
         
     }
 
     private void OnStartTrigger(GameObject trigger, GameObject other)
     {
-
+        Debug.Log("Maze Start!");
     }
 }
 

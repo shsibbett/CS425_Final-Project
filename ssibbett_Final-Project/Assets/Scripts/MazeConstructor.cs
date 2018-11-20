@@ -160,20 +160,17 @@ public class MazeConstructor : MonoBehaviour
         PathNode[,] maze = data;
         int maxRows = maze.GetUpperBound(0);
         int maxColumns = maze.GetUpperBound(1);
+        float distance = 0.6f;
 
-        // loop top to bottom, right to left
-        for (int i = maxRows; i >= 0; i--)
-        {
-            for (int j = maxColumns; j >= 0; j--)
-            {
-                if (maze[i, j].data == 0)
-                {
-                    goalRow = i;
-                    goalColumn = j;
-                    return;
-                }
-            }
+        if(Random.value > distance) {
+            goalRow = Random.Range((maze.GetUpperBound(0) / 2) + 1, maze.GetUpperBound(0));
+            goalColumn = Random.Range((maze.GetUpperBound(1) / 2) + 1, maze.GetUpperBound(1));
+        } else {
+            goalRow = Random.Range(maze.GetLowerBound(0), maze.GetUpperBound(0));
+            goalColumn = Random.Range(maze.GetLowerBound(1), maze.GetUpperBound(1));
         }
+
+        return;
     }
 
     private void PlaceStartTrigger(TriggerEventHandler callback)

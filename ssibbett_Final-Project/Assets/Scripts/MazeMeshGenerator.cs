@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class MazeMeshGenerator
 {    
-    public float width;     // corridor width
-    public float height;    // corridor height
+    public float width;
+    public float height;
 
     public MazeMeshGenerator()
     {
@@ -20,10 +20,10 @@ public class MazeMeshGenerator
         List<Vector2> newUVs = new List<Vector2>();
 
         maze.subMeshCount = 4;
-        List<int> floorTriangles = new List<int>();
-        List<int> trapTriangles = new List<int>();
-        List<int> wallTriangles = new List<int>();
-        List<int> ceilingTriangles = new List<int>();
+        List<int> floorTiles = new List<int>();
+        List<int> trapTiles = new List<int>();
+        List<int> wallTiles = new List<int>();
+        List<int> ceilingTiles = new List<int>();
 
         int maxRows = data.GetUpperBound(0);
         int maxColumns = data.GetUpperBound(1);
@@ -35,19 +35,18 @@ public class MazeMeshGenerator
             {
                 if (data[i, j].data != 1)
                 {
-                    if (data[i, j].data == 0) {
-                    // floor
+                    if (data[i, j].data == 0) { // floor tile
                         AddQuad(Matrix4x4.TRS(
                             new Vector3(j * width, 0, i * width),
                             Quaternion.LookRotation(Vector3.up),
                             new Vector3(width, width, 1)
-                        ), ref newVertices, ref newUVs, ref floorTriangles);
-                    } else {
+                        ), ref newVertices, ref newUVs, ref floorTiles);
+                    } else { // trap tile
                         AddQuad(Matrix4x4.TRS(
                             new Vector3(j * width, 0, i * width),
                             Quaternion.LookRotation(Vector3.up),
                             new Vector3(width, width, 1)
-                        ), ref newVertices, ref newUVs, ref trapTriangles);
+                        ), ref newVertices, ref newUVs, ref trapTiles);
                     }
 
                     // ceiling
@@ -55,18 +54,15 @@ public class MazeMeshGenerator
                         new Vector3(j * width, height, i * width),
                         Quaternion.LookRotation(Vector3.down),
                         new Vector3(width, width, 1)
-                    ), ref newVertices, ref newUVs, ref ceilingTriangles);
+                    ), ref newVertices, ref newUVs, ref ceilingTiles);
 
-
-                    // walls on sides next to blocked grid cells
-
-                    if (i - 1 < 0 || data[i-1, j].data == 1)
+                    if (i - 1 < 0 || data[i-1, j].data == 1) // wall on sides of blocked cells
                     {
                         AddQuad(Matrix4x4.TRS(
                             new Vector3(j * width, heightHalf, (i-.5f) * width),
                             Quaternion.LookRotation(Vector3.forward),
                             new Vector3(width, height, 1)
-                        ), ref newVertices, ref newUVs, ref wallTriangles);
+                        ), ref newVertices, ref newUVs, ref wallTiles);
                     }
 
                     if (j + 1 > maxColumns || data[i, j+1].data == 1)
@@ -75,7 +71,7 @@ public class MazeMeshGenerator
                             new Vector3((j+.5f) * width, heightHalf, i * width),
                             Quaternion.LookRotation(Vector3.left),
                             new Vector3(width, height, 1)
-                        ), ref newVertices, ref newUVs, ref wallTriangles);
+                        ), ref newVertices, ref newUVs, ref wallTiles);
                     }
 
                     if (j - 1 < 0 || data[i, j-1].data == 1)
@@ -84,7 +80,7 @@ public class MazeMeshGenerator
                             new Vector3((j-.5f) * width, heightHalf, i * width),
                             Quaternion.LookRotation(Vector3.right),
                             new Vector3(width, height, 1)
-                        ), ref newVertices, ref newUVs, ref wallTriangles);
+                        ), ref newVertices, ref newUVs, ref wallTiles);
                     }
 
                     if (i + 1 > maxRows || data[i+1, j].data == 1)
@@ -93,7 +89,7 @@ public class MazeMeshGenerator
                             new Vector3(j * width, heightHalf, (i+.5f) * width),
                             Quaternion.LookRotation(Vector3.back),
                             new Vector3(width, height, 1)
-                        ), ref newVertices, ref newUVs, ref wallTriangles);
+                        ), ref newVertices, ref newUVs, ref wallTiles);
                     }
                 }
             }
@@ -102,10 +98,10 @@ public class MazeMeshGenerator
         maze.vertices = newVertices.ToArray();
         maze.uv = newUVs.ToArray();
         
-        maze.SetTriangles(floorTriangles.ToArray(), 0);
-        maze.SetTriangles(wallTriangles.ToArray(), 1);
-        maze.SetTriangles(ceilingTriangles.ToArray(), 2);
-        maze.SetTriangles(trapTriangles.ToArray(), 3);
+        maze.SetTriangles(floorTiles.ToArray(), 0);
+        maze.SetTriangles(wallTiles.ToArray(), 1);
+        maze.SetTriangles(ceilingTiles.ToArray(), 2);
+        maze.SetTriangles(trapTiles.ToArray(), 3);
 
         maze.RecalculateNormals();
 
