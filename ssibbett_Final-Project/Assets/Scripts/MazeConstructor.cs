@@ -163,8 +163,8 @@ public class MazeConstructor : MonoBehaviour
         float distance = 0.6f;
 
         if(Random.value > distance) {
-            goalRow = Random.Range((maze.GetUpperBound(0) / 2) + 1, maze.GetUpperBound(0));
-            goalColumn = Random.Range((maze.GetUpperBound(1) / 2) + 1, maze.GetUpperBound(1));
+            goalRow = Random.Range((maxRows / 2) + 1, maxRows);
+            goalColumn = Random.Range((maxColumns / 2) + 1, maxColumns);
         } else {
             goalRow = Random.Range(maze.GetLowerBound(0), maze.GetUpperBound(0));
             goalColumn = Random.Range(maze.GetLowerBound(1), maze.GetUpperBound(1));
