@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1773131083}
+  death: {fileID: 198000012777718758, guid: acf39d9f4addf294d93fa56fa373961b, type: 2}
 --- !u!114 &933567176
 MonoBehaviour:
   m_ObjectHideFlags: 0

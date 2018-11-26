@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private FpsMovement player;
 
     private MazeConstructor generator;
+    public ParticleSystem death;
     
     void Start() {
         generator = GetComponent<MazeConstructor>();
@@ -67,6 +68,8 @@ public class GameController : MonoBehaviour
 
     private IEnumerator Respawn() {
         Debug.Log("Trap Activated");
+
+        Instantiate(death, player.transform.position, Quaternion.identity);
 
         float z = player.transform.position.z;
         float x = player.transform.position.x;
