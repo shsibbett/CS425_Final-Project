@@ -3,13 +3,19 @@ using UnityEngine;
 
 public class MazeMeshGenerator
 {    
-    public float width;
-    public float height;
+    // public float width;
+    // public float height;
+
+    public int width;
+    public int height;
 
     public MazeMeshGenerator()
     {
-        width = 3.75f;
-        height = 3.5f;
+        //width = 3.75f;
+        //height = 3.5f;
+        
+        width = 4;
+        height = 4;
     }
 
     public Mesh FromData(PathNode[,] data)
@@ -35,7 +41,7 @@ public class MazeMeshGenerator
             {
                 if (data[i, j].data != 1)
                 {
-                    if (data[i, j].data == 0) { // floor tile
+                    if (data[i, j].data == 0 || data[i, j].data == -1) { // floor tile
                         AddQuad(Matrix4x4.TRS(
                             new Vector3(j * width, 0, i * width),
                             Quaternion.LookRotation(Vector3.up),

@@ -17,8 +17,11 @@ public class MazeConstructor : MonoBehaviour
 
     public PathNode[,] data { get; private set; }
 
-    public float corridorWidth { get; private set; }
-    public float corridorHeight { get; private set; }
+    // public float corridorWidth { get; private set; }
+    // public float corridorHeight { get; private set; }
+
+    public int corridorWidth { get; private set; }
+    public int corridorHeight { get; private set; }
 
     public int startRow { get; private set; }
     public int startColumn { get; private set; }

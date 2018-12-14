@@ -23,6 +23,7 @@ public class MazeDataGenerator
 		for (int i = 0; i <= maxRows; i++) {
         	for (int j = 0; j <= maxColumns; j++) {
 				maze[i, j] = new PathNode();
+				maze[i, j].position = new Vector3 (j * 4, 0, i * 4);
 				maze[i, j].row = i;
 				maze[i, j].column = j;
 			}

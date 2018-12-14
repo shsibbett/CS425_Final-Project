@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PathNode {
+
+	public Vector3 position {get; set;}
 	public int row {get; set;}
 	public int column {get; set;}
 	public int data {get; set;}
