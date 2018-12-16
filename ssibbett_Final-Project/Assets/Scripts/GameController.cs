@@ -13,6 +13,12 @@ public class GameController : MonoBehaviour
     private MazeConstructor generator;
     public ParticleSystem death;
     public GameObject burn_mark;
+
+    int count = 1;
+    int rows = 7;
+    int columns = 9;
+
+    public float trapChance = 0.25f; 
     
     void Start() {
         generator = GetComponent<MazeConstructor>();
@@ -26,11 +32,10 @@ public class GameController : MonoBehaviour
 
     private void StartNewMaze()
     {
-        generator.GenerateNewMaze(13, 15, OnStartTrigger, OnGoalTrigger);
+        Debug.Log("count: " + count);
+        Debug.Log("rows: " + rows + "  columns: " + columns + "  trapChance: " + trapChance);
 
-        // float x = generator.startColumn * generator.corridorWidth;
-        // float y = 1;
-        // float z = generator.startRow * generator.corridorWidth;
+        generator.GenerateNewMaze(rows, columns, trapChance, OnStartTrigger, OnGoalTrigger);
 
         int x = generator.startColumn * generator.corridorWidth;
         int y = 1;
@@ -65,8 +70,8 @@ public class GameController : MonoBehaviour
             currentColumn++;
         }
 
-        Debug.Log("row: " + currentRow + "  column: " + currentColumn + "  trap: " + generator.data[currentRow, currentColumn].data);
-        Debug.Log("f row: " + floatRow + "  f column: " + floatColumn);
+        // Debug.Log("row: " + currentRow + "  column: " + currentColumn + "  trap: " + generator.data[currentRow, currentColumn].data);
+        // Debug.Log("f row: " + floatRow + "  f column: " + floatColumn);
 
         if (generator.data[currentRow, currentColumn].data == 2) {
             Vector3 position = generator.data[currentRow, currentColumn].position;
@@ -81,13 +86,23 @@ public class GameController : MonoBehaviour
         Debug.Log("Escaped!");
         player.enabled = false; // make player immobile while generating new maze
 
+        if (count % 3 != 0) {
+            trapChance += 0.05f;
+        } else {
+            rows += 2;
+            columns += 2;
+            trapChance -= 0.1f;
+        }
+
+        count++;
+
         Invoke("StartNewMaze", 4); // generate new maze
         
     }
 
     private void OnStartTrigger(GameObject trigger, GameObject other)
     {
-        Debug.Log("Maze Start!");
+        //Debug.Log("Maze Start!");
     }
 
     private IEnumerator Respawn() {

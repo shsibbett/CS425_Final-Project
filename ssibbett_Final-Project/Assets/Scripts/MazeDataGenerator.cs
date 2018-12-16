@@ -4,16 +4,14 @@ using UnityEngine;
 public class MazeDataGenerator
 {
     public float placementThreshold;    // chance of empty space
-	public float placeTrap; // chance of space holding a trap
 	public PathNode[,] g_maze;
 
     public MazeDataGenerator()
     {
-        placementThreshold = .1f;     
-		placeTrap = 0.075f;               
+        placementThreshold = .1f;                    
     }
 
-    public PathNode[,] FromDimensions(int sizeRows, int sizeCols)
+    public PathNode[,] FromDimensions(int sizeRows, int sizeCols, float trapChance)
     {
         PathNode[,] maze = new PathNode[sizeRows, sizeCols];
         
@@ -46,7 +44,7 @@ public class MazeDataGenerator
                     	maze[i+x, j+y].data = 1;
 						maze[i+x, j+y].debug = "==";
                 	} 
-            	} else if (Random.value < placeTrap) { // trap tile chance
+            	} else if (Random.value < trapChance) { // trap tile chance
 						maze[i, j].data = 2;
 						maze[i, j].trap = true;
 						maze[i, j].debug = ";;;;";

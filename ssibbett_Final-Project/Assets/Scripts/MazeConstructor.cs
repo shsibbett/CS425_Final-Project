@@ -27,11 +27,7 @@ public class MazeConstructor : MonoBehaviour
     public int startColumn { get; private set; }
 
     public int goalRow { get; private set; }
-    public int goalColumn
-    {
-        get; 
-        private set;
-    }
+    public int goalColumn { get; private set; }
 
     void Awake()
     {
@@ -47,7 +43,7 @@ public class MazeConstructor : MonoBehaviour
         };
     }
     
-    public void GenerateNewMaze(int rows, int columns,
+    public void GenerateNewMaze(int rows, int columns, float trapChance,
         TriggerEventHandler startCallback=null, TriggerEventHandler goalCallback=null)
     {
         if (rows % 2 == 0 && columns % 2 == 0)
@@ -60,14 +56,17 @@ public class MazeConstructor : MonoBehaviour
         while (!valid) {
             DestroyPrevMaze();
 
-            data = mazeGenerator.FromDimensions(rows, columns);
+            data = mazeGenerator.FromDimensions(rows, columns, trapChance);
 
             GenerateStart();
             GenerateGoal();
 
             valid = mazeGenerator.validMaze(startRow, startColumn, goalRow, goalColumn);
-            Debug.Log("valid: " + valid);
+            //Debug.Log("valid: " + valid);
         }
+
+        Debug.Log("Maze Start!");
+
         corridorWidth = meshGenerator.width;
         corridorHeight = meshGenerator.height;
 
@@ -163,14 +162,19 @@ public class MazeConstructor : MonoBehaviour
         PathNode[,] maze = data;
         int maxRows = maze.GetUpperBound(0);
         int maxColumns = maze.GetUpperBound(1);
-        float distance = 0.6f;
+        float rowDistanceChance = 0.2f;
+        float columnDistanceChance = 0.3f;
 
-        if(Random.value > distance) {
-            goalRow = Random.Range((maxRows / 2) + 1, maxRows);
-            goalColumn = Random.Range((maxColumns / 2) + 1, maxColumns);
+        if (Random.value > rowDistanceChance) { // place goal farther away from player
+            goalRow = Random.Range((maxRows / 2) + 2, maxRows);
         } else {
-            goalRow = Random.Range(maze.GetLowerBound(0), maze.GetUpperBound(0));
-            goalColumn = Random.Range(maze.GetLowerBound(1), maze.GetUpperBound(1));
+            goalRow = Random.Range((maxRows / 4), maze.GetUpperBound(0));
+        }
+
+        if (Random.value > columnDistanceChance) {
+            goalColumn = Random.Range((maxColumns / 2) + 2, maxColumns);
+        } else {
+            goalColumn = Random.Range((maxColumns / 4), maze.GetUpperBound(1));
         }
 
         return;
