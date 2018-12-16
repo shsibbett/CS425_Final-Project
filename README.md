@@ -9,9 +9,11 @@ Unity is the game engine being used.
 
 An interesting component of this game is that the player is required to die to be able to progress and find the safe path out of the maze. Also, the difficulty and size of the maze increases as levels are completed; the spawn rate of traps is increased after each level, and the size is increased at every third level. The trap spawn rate is also reset every third level to avoid the maze becoming too difficult.
 
+
 GOAL
 
 Find and get to the green cube marking the exit of the maze.
+
 
 HOW TO PLAY
 
