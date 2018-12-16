@@ -334,7 +334,7 @@ MonoBehaviour:
   ceilingMat: {fileID: 2100000, guid: 90958dd685f590642806ebb68b473bc3, type: 2}
   startMat: {fileID: 2100000, guid: c8296ee06001c4d39b0f615626264b85, type: 2}
   goalMat: {fileID: 2100000, guid: 32aef87a62cae234dbeb475f7f1274a4, type: 2}
-  trapMat: {fileID: 2100000, guid: c5b8154923bae4fedbbb1f1aca66fd98, type: 2}
+  trapMat: {fileID: 2100000, guid: eb4aaffc54b6c6f4facb62d9bd099030, type: 2}
 --- !u!4 &933567177
 Transform:
   m_ObjectHideFlags: 0
