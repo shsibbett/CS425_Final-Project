@@ -1,10 +1,16 @@
 # CS425_Final-Project
 
-The player is trapped in a maze and must blindly find the exit while avoiding numerous traps that will kill them if activated. An imprint of their death is left behind, and the player must utilize these imprints to safely navigate the maze.
+The player is trapped in a maze-like facility and must blindly find the exit while avoiding numerous traps that will kill them if activated. A burn mark of the explosion that killed the player is left behind, and they must utilized to safely navigate the maze.
 
 
-This game utilizies procedural generation to create the maze and to place the traps within it.
+This game utilizies procedural generation to create the maze and to place the traps within it. Breath-first search is used to ensure a valid path from the start to the goal of the maze.
 
 Unity is the game engine being used.
 
-An interesting component of this game is that the player’s vision/view of their surroundings will be limited, so the player is required to die to be able to progress to be able to find the safe path out of the maze.
+An interesting component of this game is that the player is required to die to be able to progress and find the safe path out of the maze. Also, the difficulty and size of the maze increases as levels are completed; the spawn rate of traps is increased after each level, and the size is increased at every third level. The trap spawn rate is also reset every third level to avoid the maze becoming too difficult.
+
+GOAL
+Find and get to the green cube marking the exit of the maze.
+
+HOW TO PLAY
+Use WASD to move and the mouse to control the camera. If the player steps on a trap tile, they will die and respawn at the start. Burn marks from the explosive traps are left behind that the player can use to safely navigate the maze. Continue exploring the maze until a safe path to the exit has been found and the goal is reached. A new maze will be generated with increased There is no penalty for dying.
