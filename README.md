@@ -10,7 +10,9 @@ Unity is the game engine being used.
 An interesting component of this game is that the player is required to die to be able to progress and find the safe path out of the maze. Also, the difficulty and size of the maze increases as levels are completed; the spawn rate of traps is increased after each level, and the size is increased at every third level. The trap spawn rate is also reset every third level to avoid the maze becoming too difficult.
 
 GOAL
+
 Find and get to the green cube marking the exit of the maze.
 
 HOW TO PLAY
+
 Use WASD to move and the mouse to control the camera. If the player steps on a trap tile, they will die and respawn at the start. Burn marks from the explosive traps are left behind that the player can use to safely navigate the maze. Continue exploring the maze until a safe path to the exit has been found and the goal is reached. A new maze will be generated with increased There is no penalty for dying.
