@@ -1,4 +1,4 @@
-# CS425_Final-Project
+# CS425_Final Project
 
 The player is trapped in a maze-like facility and must blindly find the exit while avoiding numerous traps that will kill them if activated. A burn mark of the explosion that killed the player is left behind, and they must utilized to safely navigate the maze.
 
